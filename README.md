@@ -1,2 +1,2 @@
-The-Power-of-Color
-==================
+The Power of Color
+===================
