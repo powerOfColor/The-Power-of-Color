@@ -13,6 +13,7 @@ function Board() {
     this.score = 0;
     this.possibleAdditions = [2, 4]
     this.size = 4;
+    this.moves = 0;
     this.addRandomTile();
     this.last = [null, null];
     this.animate = false;
@@ -225,6 +226,7 @@ Board.prototype.move = function(key) {
       return !(bool);
 }
 Board.prototype.nextMove = function() {
+  this.moves+=1;
   this.addRandomTile();
   this.won = this.checkWon();
   this.lost = this.checkLoss();
