@@ -1,6 +1,6 @@
-//Still completely untested
-
 function Board() {
+    this.choosing = false;
+    this.choicesLeft = 3;
     this.black = "Black";
     this.white = "White";
     this.red = "Red";
@@ -75,7 +75,12 @@ Board.prototype.addRandomTile = function() {
         randomY = Math.floor(Math.random()*4);
         randomX = Math.floor(Math.random()*4);
     }
-    var randomColor = this.possibleColors[Math.floor(Math.random()*4)];
+    if (typeof(this.choice) === "undefined" || this.choice == null) {
+      var randomColor = this.possibleColors[Math.floor(Math.random()*4)];
+    }
+    else {
+      randomColor = this.choice;
+    }
     var randomNumber = Math.floor(Math.random()*4);
     if (randomNumber < 3) {
         randomNumber = 0;
@@ -86,6 +91,7 @@ Board.prototype.addRandomTile = function() {
     this.values[randomY][randomX] = this.possibleAdditions[randomNumber];
     this.colors[randomY][randomX] = randomColor;
     this.last = [randomY, randomX];
+    this.choice = null;
 }
 
 Board.prototype.addColors = function(a, b) {
