@@ -125,10 +125,8 @@
                       $("#"+ids[i][j]).switchClass("smallerBox", "smallerSmallerBox", 0);
                     }
                     $("#"+ids[i][j]).html(board.values[i][j])
-                    console.log(board.values[i][j], board.colors[i][j]);
                     if (board.colors[i][j] == "Black" || board.colors[i][j] == "Red") {
                       if (board.last[0] == i && board.last[1] == j && board.animate) {
-                        console.log(i,j);
                         $("#"+ids[i][j]).animate({"background-color": board.colors[i][j], "color": "White"});
                       }
                       else {
@@ -145,7 +143,6 @@
                     }
                   }
                   else {
-                    console.log(board.values[i][j], board.colors[i][j]);
                     $("#"+ids[i][j]).html("");
                     $("#"+ids[i][j]).finish();
                     $("#"+ids[i][j]).css({"background-color": "#CCCCCC"});
@@ -162,7 +159,6 @@
                 var index = keyCodes.indexOf(keyCode);
                 if (index != -1 && board.choosing == false) {
                   if (board.animate = board.move(keyValues[index])) {
-                    console.log("next");
                     board.nextMove();
                     populateBoard();
                   }
