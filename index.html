@@ -5,22 +5,26 @@
         <script type = "text/javascript" src = "Scripts/jquery-2.1.0.min.js"></script>
         <script type = "text/javascript" src = "Scripts/jquery.sticky.js"></script>
         <script type = "text/javascript" src = "Scripts/jquery-ui-1.10.4.min.js"></script>
-        <script type = "text/javascript" src = "bootstrap/js/bootstrap.min.js"></script>
         <script type = "text/javascript" src = "board.js"></script>
-        <link rel = "stylesheet" src = "bootstrap/css/bootstrap.min.css">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
         <link rel = "stylesheet" type = "text/css" href = "jquery-ui-1.10.4.min.css">
     </head>
     <body>
         <header>
-            <h1>The Power of Color</h1>
+          <table style = "display: block; margin-left: auto; margin-right: auto;">
+            <tr>
+              <td><img src = "color.png" width = "300px;"/></td>
+              <td><div class = "score" id = "score">Score <br> 0</div></td>
+            </tr>
+          </table>
+              <div class = "score" id = "moves" style = "margin-left: 306px; margin-top: -10px;">Moves <br> 0</div>
         </header>
-        <input type = "button" value = "Start Game" id = "startGame">
-        <h3 id = "score">Score: 0</h3>
-        <table>
+          <input type = "button" value = "Start Game" id = "startGame" style = "margin-left: 180px; width: 100px; height: 50px; position: absolute; margin-top: -50px;">
+        </table>
+        <table style = "display: block; margin-top: 20px;">
           <tr>
             <td>
-              <table id="Board" style = "background-color: #888888; padding: 5px 5px 5px 5px; border-radius: 10px;">
+              <table id="Board" style = "background-color: #888888; padding: 5px 5px 5px 5px; border-radius: 10px; display: block;">
                 <tr id="Row1">
                     <td><div class="Column1 box" id = "11"></div></td>
                     <td><div class="Column1 box" id = "12"></div></td>
@@ -48,7 +52,7 @@
               </table>
             </td>
             <td>
-              <div style = "margin-left: 40px; width: 325px; height: 325px; border-radius: 10px; background-color: #e6ec8b; padding-left: 20px; padding-right: 20px; padding-top: 5px;">
+              <div style = "margin-left: 40px; width: 325px; height: 325px; border-radius: 10px; background-color: #e6ec8b; padding-left: 20px; padding-right: 20px; padding-top: 5px; display: block;">
                 <h3 style = "text-align: center;">Rules</h3>
                   <p>The object of the game is to make the four corners of the board all one color.</p>
                   <p>Colors are mixed when tiles are combined as follows:</p>
@@ -102,6 +106,12 @@
               for (i = 0; i < board.size; i++) {
                 for (j = 0; j < board.size; j++) {
                   if (board.values[i][j] != null) {
+                    if (board.values[i][j] >= 1000 && board.values[i][j] < 100000) {
+                      $("#"+ids[i][j]).switchClass("box", "smallerBox", 0);
+                    }
+                    if (board.values[i][j] >= 100000) {
+                      $("#"+ids[i][j]).switchClass("smallerBox", "smallerSmallerBox", 0);
+                    }
                     $("#"+ids[i][j]).html(board.values[i][j])
                     console.log(board.values[i][j], board.colors[i][j]);
                     if (board.colors[i][j] == "Black" || board.colors[i][j] == "Red") {
@@ -130,7 +140,8 @@
                   }
                 }
               }
-              $("#score").html("Score: " + board.score);
+              $("#score").html("Score<br>" + board.score);
+              $("#moves").html("Moves<br>" + board.moves);
             }
             $(document).keydown(function(e) {
                 var keyCodes = [37, 38,  39, 40];
