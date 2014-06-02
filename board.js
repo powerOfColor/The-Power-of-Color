@@ -1,3 +1,5 @@
+//Still completely untested
+
 function Board() {
     this.choosing = false;
     this.choicesLeft = 3;
@@ -20,22 +22,16 @@ function Board() {
 };
 
 Board.prototype.checkWon = function() {
-    for (i = 0; i < this.colors.length; i++) {
-        for (j = 0; j < this.colors[0].length; j++) {
-            if (j != (this.colors[0].length-1) && j != (this.colors[0].length/2-1)) {
-                if (this.colors[i][j] != this.colors[i][j+1]) {
-                    return false;
-                }
-            }
-            if (i != (this.colors.length-1) && i != (this.colors.length/2-1)) {
-                if (this.colors[i][j] != this.colors[i+1][j]) {
-                    return false;
-                }
-            }
-
-        }
+    var square1 = [this.colors[0][0], this.colors[0][1], this.colors[1][0], this.colors[0][1]];
+    var square2 = [this.colors[0][2], this.colors[0][3], this.colors[1][2], this.colors[1][3]];
+    var square3 = [this.colors[2][2], this.colors[2][3], this.colors[3][2], this.colors[3][3]];
+    var square4 = [this.colors[2][0], this.colors[2][1], this.colors[3][0], this.colors[3][1]];
+    if (square1.same() && square2.same() && square3.same() && square4.same()) {
+      return true;
     }
-    return true;
+    else {
+      return false;
+    }
 }
 
 Board.prototype.checkLoss = function() {
@@ -106,7 +102,6 @@ Board.prototype.addColors = function(a, b) {
 	}
 	var cols = [a, b];
 	cols.sort();
-	console.log(cols);
 	if (cols.oneEquals([this.black, this.orange])) {
 		return this.red;
 	}
@@ -249,6 +244,19 @@ Board.prototype.nextMove = function() {
 Array.prototype.oneEquals = function (array) {
   for (i = 0; i < this.length; i++) {
     if (this[i] != array[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+Array.prototype.same = function () {
+  var x = this[0]
+  for (i = 0; i < this.length; i++) {
+    if (this[i] == null) {
+      return false;
+    }
+    if (x.toUpperCase() != this[i].toUpperCase()) {
       return false;
     }
   }
