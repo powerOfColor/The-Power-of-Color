@@ -10,6 +10,7 @@ function Board() {
     this.possibleAdditions = [2, 4]
     this.size = 4;
     this.addRandomTile();
+    this.last = [null, null];
 };
 
 Board.prototype.checkWon = function() {
@@ -78,6 +79,7 @@ Board.prototype.addRandomTile = function() {
     }
     this.values[randomY][randomX] = this.possibleAdditions[randomNumber];
     this.colors[randomY][randomX] = randomColor;
+    this.last = [randomY, randomX];
 }
 
 Board.prototype.addColors = function(a, b) {
