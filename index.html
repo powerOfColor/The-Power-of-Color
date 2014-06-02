@@ -4,11 +4,12 @@
     <head>
         <script type = "text/javascript" src = "Scripts/jquery-2.1.0.min.js"></script>
         <script type = "text/javascript" src = "Scripts/jquery.sticky.js"></script>
+        <script type = "text/javascript" src = "Scripts/jquery-ui-1.10.4.min.js"></script>
         <script type = "text/javascript" src = "bootstrap/js/bootstrap.min.js"></script>
         <script type = "text/javascript" src = "board.js"></script>
-        <script type = "text/javascript" src = "script.js"></script>
         <link rel = "stylesheet" src = "bootstrap/css/bootstrap.min.css">
-        <link rel = "stylesheet" type = "text/css" href="style.css">
+        <link rel = "stylesheet" type = "text/css" href = "style.css">
+        <link rel = "stylesheet" type = "text/css" href = "jquery-ui-1.10.4.min.css">
     </head>
     <body>
         <header>
@@ -102,15 +103,29 @@
                 for (j = 0; j < board.size; j++) {
                   if (board.values[i][j] != null) {
                     $("#"+ids[i][j]).html(board.values[i][j])
+                    console.log(board.values[i][j], board.colors[i][j]);
                     if (board.colors[i][j] == "Black" || board.colors[i][j] == "Red") {
-                      $("#"+ids[i][j]).css({"background-color": board.colors[i][j], "color": "White"})
+                      if (board.last[0] == i && board.last[1] == j && board.animate) {
+                        console.log(i,j);
+                        $("#"+ids[i][j]).animate({"background-color": board.colors[i][j], "color": "White"});
+                      }
+                      else {
+                        $("#"+ids[i][j]).css({"background-color": board.colors[i][j], "color": "White"})
+                      }
                     }
                     else {
-                      $("#"+ids[i][j]).css({"background-color": board.colors[i][j], "color": "Black"})
+                      if (board.last[0] == i && board.last[1] == j && board.animate) {
+                        $("#"+ids[i][j]).animate({"background-color": board.colors[i][j], "color": "Black"});
+                      }
+                      else {
+                        $("#"+ids[i][j]).css({"background-color": board.colors[i][j], "color": "Black"})
+                      }
                     }
                   }
                   else {
+                    console.log(board.values[i][j], board.colors[i][j]);
                     $("#"+ids[i][j]).html("");
+                    $("#"+ids[i][j]).finish();
                     $("#"+ids[i][j]).css({"background-color": "#CCCCCC"});
                   }
                 }
@@ -123,11 +138,11 @@
                 var keyCode = e.keyCode || e.which;
                 var index = keyCodes.indexOf(keyCode);
                 if (index != -1) {
-                  if (board.move(keyValues[index])) {
+                  if (board.animate = board.move(keyValues[index])) {
                     console.log("next");
                     board.nextMove();
+                    populateBoard();
                   }
-                  populateBoard();
                   e.preventDefault();
                 }
             });
