@@ -1,5 +1,3 @@
-//Still completely untested
-
 function Board() {
     this.choosing = false;
     this.choicesLeft = 3;
