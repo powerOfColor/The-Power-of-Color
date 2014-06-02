@@ -1,5 +1,11 @@
+//Still completely untested
+
 function Board() {
-    this.possibleColors = ["Black", "Red", "White", "Orange"];
+    this.black = "Black";
+    this.white = "White";
+    this.red = "Red";
+    this.orange = "#FFDD00";
+    this.possibleColors = [this.black, this.red, this.white, this.orange];
     this.colors = [[null, null, null, null], [null, null, null, null], [null, null, null, null], [null, null, null, null]];
     this.values = [[null, null, null, null], [null, null, null, null], [null, null, null, null], [null, null, null, null]];
     this.won = false;
@@ -85,25 +91,25 @@ Board.prototype.addColors = function(a, b) {
 	if (a == b) {
 		return a;
 	}
-	if (a == "White") {
+	if (a == this.white) {
 		return b;
 	}
-	if (b == "White") {
+	if (b == this.white) {
 		return a;
 	}
 	var cols = [a, b];
 	cols.sort();
 	console.log(cols);
-	if (cols.oneEquals(["Black", "Orange"])) {
-		return "Red";
+	if (cols.oneEquals([this.black, this.orange])) {
+		return this.red;
 	}
-	if (cols.oneEquals(["Black", "Red"])) {
-		return "Orange";
+	if (cols.oneEquals([this.black, this.red])) {
+		return this.orange;
 	}
-	if (cols.oneEquals(["Orange", "Red"])) {
-		return "Black";
+	if (cols.oneEquals([this.orange, this.red])) {
+		return this.black;
 	}
-	return "White";
+	return this.white;
 
 }
 
