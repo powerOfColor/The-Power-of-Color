@@ -19,7 +19,16 @@
           </table>
               <div class = "score" id = "moves" style = "margin-left: 306px; margin-top: -10px;">Moves <br> 0</div>
         </header>
+          <input type = "button" value = "Choose Color &#x00A; (3 Left)" id = "chooseColor" style = "margin-left: 50px; width: 100px; height: 50px; position: absolute; margin-top: -50px;">
           <input type = "button" value = "Start Game" id = "startGame" style = "margin-left: 180px; width: 100px; height: 50px; position: absolute; margin-top: -50px;">
+          <table id = "choose" style = "background-color: #888888; padding: 5px 5px 5px 5px; border-radius: 10px; margin-top: 10px;">
+            <tr>
+                <td><div class = "box choice" data-color = "White" style = "background-color: White"></div></td>
+                <td><div class = "box choice" data-color = "Black" style = "background-color: Black"></div></td>
+                <td><div class = "box choice" data-color = "Red" style = "background-color: Red"></div></td>
+                <td><div class = "box choice" data-color = "#FFDD00" style = "background-color: #FFDD00"></div></td>
+              </tr>
+          </table>
         </table>
         <table style = "display: block; margin-top: 20px;">
           <tr>
@@ -52,7 +61,7 @@
               </table>
             </td>
             <td>
-              <div style = "margin-left: 40px; width: 325px; height: 325px; border-radius: 10px; background-color: #e6ec8b; padding-left: 20px; padding-right: 20px; padding-top: 5px; display: block;">
+              <div style = "margin-left: 40px; width: 360px; height: 360px; border-radius: 10px; background-color: #e6ec8b; padding-left: 20px; padding-right: 20px; padding-top: 5px; display: block;">
                 <h3 style = "text-align: center;">Rules</h3>
                   <p>The object of the game is to make the four corners of the board all one color.</p>
                   <p>Colors are mixed when tiles are combined as follows:</p>
@@ -92,6 +101,7 @@
                       <td>X</td>
                     </tr>
                   </table>
+                  <p>Lastly, you may choose the color of the next appearing tile three times. Choose wisely.</p>
                   <p>You receive 1,000,000 points for winning.</p>
             </td>
           </tr>
@@ -100,6 +110,8 @@
 
     <script type = "text/javascript">
         $(document).ready(function() {
+            $("#chooseColor").hide();
+            $("#choose").hide();
             var board;
             var ids = [[11, 12, 13, 14], [21, 22, 23, 24], [31, 32, 33, 34], [41, 42, 43, 44]];
             function populateBoard() {
@@ -148,7 +160,7 @@
                 var keyValues = ["left", "up", "right", "down"]
                 var keyCode = e.keyCode || e.which;
                 var index = keyCodes.indexOf(keyCode);
-                if (index != -1) {
+                if (index != -1 && board.choosing == false) {
                   if (board.animate = board.move(keyValues[index])) {
                     console.log("next");
                     board.nextMove();
@@ -160,8 +172,27 @@
             $("#startGame").click(function() {
               $("#startGame").val("Restart Game");
               board = new Board();
+              $("#chooseColor").show();
+              $("#chooseColor").val("Choose Color \n ("+ board.choicesLeft +" Left)");
+              $("#choose").hide();
               populateBoard();
             });
+            $("")
+            $("#chooseColor").click(function() {
+              board.choosing = true;
+              $("#choose").show();
+            });
+            $(".choice").click(function() {
+              var color = $(this).data("color");
+              board.choice = color;
+              board.choosing = false;
+              board.choicesLeft -= 1;
+              $("#chooseColor").val("Choose Color \n ("+ board.choicesLeft +" Left)")
+              if (board.choicesLeft <= 0) {
+                $("#chooseColor").hide();
+              }
+              $("#choose").hide();
+            })
         });
     </script>
 </html>
