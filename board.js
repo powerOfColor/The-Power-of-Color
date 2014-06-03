@@ -100,7 +100,7 @@ Board.prototype.addColors = function(a, b) {
 	}
 	var cols = [a, b];
 	cols.sort();
-	if (cols.oneEquals([this.black, this.orange])) {
+	if (cols.oneEquals([this.orange, this.black])) {
 		return this.red;
 	}
 	if (cols.oneEquals([this.black, this.red])) {
