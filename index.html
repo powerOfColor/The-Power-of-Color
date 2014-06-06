@@ -182,6 +182,7 @@
                 $("#fewestMoves").html("Fewest Moves<br>"+fewestMoves);
               }
             }
+
             $(document).keydown(function(e) {
                 var keyCodes = [37, 38,  39, 40];
                 var keyValues = ["left", "up", "right", "down"]
@@ -222,6 +223,14 @@
               
             })
             /*
+            function makeMove(key) {
+              if (board.choosing == false) {
+                if (board.animate = board.move(key)) {
+                  board.nextMove();
+                  populateBoard();
+                }
+              }
+            }
             $("#Board").swipe( {
               swipe:function(event, direction, distance, duration, fingerCount) {
                   makeMove(direction);
@@ -229,6 +238,7 @@
                  threshold: 30
               });
             */
+         
             $("#rules").click(function() {
               var rulesText = $("#rules").html();
               if (rulesText == "How To Play") {
