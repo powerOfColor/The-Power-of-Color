@@ -17,10 +17,10 @@
               <td><div class = "score" id = "score">Score <br> 0</div></td>
             </tr>
             <tr>
-              <td><input type = "button" value = "How To Play" id = "rules"></td>
-              <td><input type = "button" value = "Choose Color &#x00A; (3 Left)" id = "chooseColor"></td>
+              <td><button value = "How To Play" id = "rules">How To Play</button></td>
+              <td><button value = "Choose Color &#x00A; (3 Left)" id = "chooseColor">Choose Color &#x00A; (3 Left)</button></td>
               <td><a href = "https://play.google.com/store/apps/details?id=com.areke.powerOfColor"><button style = "width: 100px; height: 50px;">Download for Android</button></a></td>
-              <td><input type = "button" value = "Start Game" id = "startGame"></td>
+              <td><button value = "Start Game" id = "startGame">Start Game</button></td>
               <td><div class = "score" id = "moves">Moves <br> 0</div></td>
             </tr>
           </table>
@@ -171,7 +171,7 @@
               $("#score").html("Score<br>" + board.score);
               $("#moves").html("Moves<br>" + board.moves);
               if (board.lost == true) {
-                $("#startGame").val("Start Game");
+                $("#startGame").html("Start Game");
                 $("#chooseColor").hide();
                 $("#choose").hide();
                 $("#rules").show();
@@ -197,11 +197,11 @@
             });
   
             $("#startGame").click(function() {
-              $("#startGame").val("Restart\nGame");
+              $("#startGame").html("Restart\nGame");
               board = new Board();
               $("#rules").hide();     
               $("#chooseColor").show();
-              $("#chooseColor").val("Choose Color \n ("+ board.choicesLeft +" Left)");
+              $("#chooseColor").html("Choose Color \n ("+ board.choicesLeft +" Left)");
               $("#choose").hide();
               populateBoard();
             });
@@ -214,7 +214,7 @@
               board.choice = color;
               board.choosing = false;
               board.choicesLeft -= 1;
-              $("#chooseColor").val("Choose Color \n ("+ board.choicesLeft +" Left)")
+              $("#chooseColor").html("Choose Color \n ("+ board.choicesLeft +" Left)")
               if (board.choicesLeft <= 0) {
                 $("#chooseColor").hide();
               }
@@ -230,18 +230,18 @@
               });
             */
             $("#rules").click(function() {
-              var rulesText = $("#rules").val();
+              var rulesText = $("#rules").html();
               if (rulesText == "How To Play") {
                 $("#startGame").hide();
                 $("#Board").hide();
                 $("#howToPlay").show();
-                $("#rules").val("Back To\nGame")
+                $("#rules").html("Back To\nGame")
               }
               else {
                 $("#howToPlay").hide();
                 $("#Board").show();
                 $("#startGame").show();
-                $("#rules").val("How To Play")
+                $("#rules").html("How To Play")
               }
             });
         });
